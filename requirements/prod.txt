@@ -1,0 +1,5 @@
+Flask==0.12.4
+flask-sqlalchemy
+# Postgres
+psycopg2
+Flask-Migrate
