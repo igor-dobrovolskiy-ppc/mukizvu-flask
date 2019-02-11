@@ -1,3 +1,5 @@
+from builtins import classmethod
+
 from .. import db
 
 
@@ -112,7 +114,7 @@ personnel_performer_roles = db.Table(
     'm3vu_personnel_performer_role',
     db.Column('performer_id', db.Integer, db.ForeignKey('m3vu_performer.id')),
     db.Column('personnel_id', db.Integer, db.ForeignKey('m3vu_personnel.id')),
-    db.Column('performer_role_id', db.Integer, nullable=True)
+    db.Column('performer_role_id', db.Integer, db.ForeignKey('m3vu_performer_role.id'), nullable=True)
 )
 
 
@@ -142,3 +144,44 @@ class Personnel(db.Model):
         return '<Personnel#{}: {}-{}, band: {}, performers: {}>'.format(self.id, self.start_date, self.end_date,
                                                                         self.band(), self.performers)
 
+
+role_activities = db.Table(
+    'm3vu_role_activity',
+    db.Column('performer_id', db.Integer, db.ForeignKey('m3vu_performer_role.id')),
+    db.Column('personnel_id', db.Integer, db.ForeignKey('m3vu_performer_activity.id'))
+    # TODO: think over adding start-end dates here
+)
+
+
+class PerformerRole(db.Model):
+    __tablename__ = 'm3vu_performer_role'
+
+    id = db.Column(db.Integer(), primary_key=True)
+    is_main_cast = db.Column(db.Boolean(), nullable=False, default=True)
+
+    activities = db.relationship(
+        'PerformerActivity',
+        secondary=role_activities,
+        backref=db.backref('roles', lazy='dynamic')
+    )
+
+    def __init__(self, is_main_cast):
+        self.is_main_cast = is_main_cast
+
+    def __repr__(self):
+        return '<PerformerRole#{}: isMainCast: {}; activities: {}>'.format(self.id, self.is_main_cast, self.activities)
+
+
+class PerformerActivity(db.Model):
+    __tablename__ = 'm3vu_performer_activity'
+
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    desc = db.Column(db.Text(), nullable=True)
+
+    def __init__(self, name, desc=None):
+        self.name = name
+        self.desc = desc
+
+    def __repr__(self):
+        return '<PerformerActivity#{}: {} ({})>'.format(self.id, self.name, self.desc)

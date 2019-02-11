@@ -1,7 +1,7 @@
 import datetime
 from webapp import db
-from webapp.models import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles
-
+from webapp.models import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles, PerformerRole, \
+    PerformerActivity, role_activities
 
 db.create_all()
 
@@ -30,8 +30,45 @@ db.session.commit()
 band = Band.from_name("The Beatles")
 db.session.add(band)
 db.session.commit()
-personnel = Personnel(band.id, datetime.date(1961, 1, 1), datetime.date(1968, 10, 11))
+personnel = Personnel(band.id, start_date=datetime.date(1960, 8, 15), end_date=datetime.date(1970, 4, 10))
 db.session.add(personnel)
 db.session.commit()
-personnel_performer_roles.insert().values((performer.id, personnel.id, None))
+role = PerformerRole(is_main_cast=True)
+role2 = PerformerRole(is_main_cast=True)
+db.session.add(role)
+db.session.add(role2)
+db.session.commit()
+
+acs = [PerformerActivity("Rhythm Guitar"),
+       PerformerActivity("Bass Guitar"),
+       PerformerActivity("Solo Guitar"),
+       PerformerActivity("Acoustic Guitar"),
+       PerformerActivity("Drums"),
+       PerformerActivity("Leading Vocal"),
+       PerformerActivity("Back Vocal"),
+       PerformerActivity("Percussion"),
+       PerformerActivity("Keyboards")]
+
+for a in acs:
+    db.session.add(a)
+db.session.commit()
+
+s = personnel_performer_roles.insert().values([
+    (performer.id, personnel.id, role.id),
+    (performer2.id, personnel.id, role2.id)
+])
+db.session.execute(s)
+db.session.commit()
+
+
+ras = role_activities.insert().values([
+    (role.id, acs[0].id),
+    (role.id, acs[3].id),
+    (role.id, acs[5].id),
+    (role.id, acs[6].id),
+    (role2.id, acs[1].id),
+    (role2.id, acs[5].id),
+    (role2.id, acs[6].id)
+])
+db.session.execute(ras)
 db.session.commit()
