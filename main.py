@@ -1,10 +1,20 @@
 import os
+
+#from flask import Flask, render_template, flash, redirect, url_for
+from flask import render_template
 from webapp import create_app
 # from webapp.cli import register
 
 env = os.environ.get('WEBAPP_ENV', 'dev')
 app = create_app('config.%sConfig' % env.capitalize())
 # register(app)
+
+
+@app.route('/')
+def home():
+    return render_template(
+        'home.html'
+    )
 
 
 if __name__ == '__main__':
