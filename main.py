@@ -1,20 +1,96 @@
 import os
+import logging
 
 #from flask import Flask, render_template, flash, redirect, url_for
 from flask import render_template
 from webapp import create_app
 # from webapp.cli import register
+from webapp.models import Person
+
+log = logging.getLogger(__name__)
+
+
+# from logging.config import dictConfig
+#
+# dictConfig({
+#     'version': 1,
+#     'formatters': {'default': {
+#         'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+#     }},
+#     'handlers': {'wsgi': {
+#         'class': 'logging.StreamHandler',
+#         'stream': 'ext://flask.logging.wsgi_errors_stream',
+#         'formatter': 'default'
+#     }},
+#     'root': {
+#         'level': 'INFO',
+#         'handlers': ['wsgi']
+#     }
+# })
+
+
+# import logging
+# from flask.logging import default_handler
+
+
 
 env = os.environ.get('WEBAPP_ENV', 'dev')
 app = create_app('config.%sConfig' % env.capitalize())
 # register(app)
 
+# root = logging.getLogger()
+# root.addHandler(default_handler)
+# for logger in (
+#     app.logger,
+#     logging.getLogger('sqlalchemy'),
+# ):
+#     logger.addHandler(default_handler)
+
 
 @app.route('/')
 def home():
+    persons = Person.query.all()
+
+    log.info("Persons: %s" % (str(persons)))
+
     return render_template(
-        'home.html'
+        'home.html',
+        persons=persons
     )
+
+@app.route('/person/<int:person_id>', methods=('GET', 'POST'))
+def person(person_id):
+    # form = CommentForm()
+    # if form.validate_on_submit():
+    #     new_comment = Comment()
+    #     new_comment.name = form.name.data
+    #     new_comment.text = form.text.data
+    #     new_comment.post_id = post_id
+    #     try:
+    #         db.session.add(new_comment)
+    #         db.session.commit()
+    #     except Exception as e:
+    #         flash('Error adding your comment: %s' % str(e), 'error')
+    #         db.session.rollback()
+    #     else:
+    #         flash('Comment added', 'info')
+    #     return redirect(url_for('post', post_id=post_id))
+    #
+    # post = Post.query.get_or_404(post_id)
+    # tags = post.tags
+    # comments = post.comments.order_by(Comment.date.desc()).all()
+    # recent, top_tags = sidebar_data()
+    #
+    # return render_template(
+    #     'post.html',
+    #     post=post,
+    #     tags=tags,
+    #     comments=comments,
+    #     recent=recent,
+    #     top_tags=top_tags,
+    #     form=form
+    # )
+    return "<html>Hello Person"
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@ from webapp import db
 from webapp.models import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles, PerformerRole, \
     PerformerActivity, role_activities
 
-db.create_all()
+# db.create_all()
 
 person = Person(name="Adam", surname="First")
 db.session.add(person)
