@@ -60,11 +60,11 @@
 {% endfor %}
 {% endmacro %#}
 
-{% macro render_persons(persons, pagination=True) %}
-{% for person in persons %}
+{% macro render_performers(performers, pagination=True) %}
+{% for performer in performers %}
 <div >
     <h1>
-        <a class="text-dark" href="{{ url_for('person', person_id=person.id) }}">{{ person }}</a>
+        <a class="text-dark" href="{{ url_for('performer', performer_id=performer.id) }}">{{ performer }}</a>
     </h1>
 </div>
 <!--<div class="row">-->

@@ -59,6 +59,14 @@ class Performer(db.Model):
     def person(self):
         return Person.query.filter_by(id=self.person_id).first()
 
+    @staticmethod
+    def performers():
+        from sqlalchemy.sql.expression import not_
+
+        return Performer.query.filter(
+            not_(Performer.person_id == None)
+        ).distinct(Performer.person_id)
+
     def __init__(self, person_id):
         self.person_id = person_id
 

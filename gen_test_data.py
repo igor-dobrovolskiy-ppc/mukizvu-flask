@@ -3,7 +3,15 @@ from webapp import db
 from webapp.models import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles, PerformerRole, \
     PerformerActivity, role_activities
 
-# db.create_all()
+db.create_all()
+
+ds1 = personnel_performer_roles.delete()
+ds2 = role_activities.delete()
+db.session.execute(ds1)
+db.session.execute(ds2)
+db.session.commit()
+
+db.session.query(Person).delete()
 
 person = Person(name="Adam", surname="First")
 db.session.add(person)
@@ -12,32 +20,52 @@ db.session.add(person2)
 person3 = Person(name="Paul", surname="McCartney")
 db.session.add(person3)
 db.session.commit()
+
+db.session.query(Author).delete()
+
 author = Author(person_id=person2.id)
 db.session.add(author)
 author2 = Author(person_id=person3.id)
 db.session.add(author2)
+
+db.session.query(Performer).delete()
+
 performer = Performer(person_id=person2.id)
 db.session.add(performer)
 performer2 = Performer(person_id=person3.id)
 db.session.add(performer2)
 db.session.commit()
+
+db.session.query(Opus).delete()
+
 opus = Opus(name="Imagine")
 opus.authors = [author]
 db.session.add(opus)
 opus2 = Opus(name="Help!")
 opus2.authors = [author, author2]
 db.session.commit()
+
+db.session.query(Band).delete()
+
 band = Band.from_name("The Beatles")
 db.session.add(band)
 db.session.commit()
+
+db.session.query(Personnel).delete()
+
 personnel = Personnel(band.id, start_date=datetime.date(1960, 8, 15), end_date=datetime.date(1970, 4, 10))
 db.session.add(personnel)
 db.session.commit()
+
+db.session.query(PerformerRole).delete()
+
 role = PerformerRole(is_main_cast=True)
 role2 = PerformerRole(is_main_cast=True)
 db.session.add(role)
 db.session.add(role2)
 db.session.commit()
+
+db.session.query(PerformerActivity).delete()
 
 acs = [PerformerActivity("Rhythm Guitar"),
        PerformerActivity("Bass Guitar"),
@@ -53,13 +81,13 @@ for a in acs:
     db.session.add(a)
 db.session.commit()
 
+
 s = personnel_performer_roles.insert().values([
     (performer.id, personnel.id, role.id),
     (performer2.id, personnel.id, role2.id)
 ])
 db.session.execute(s)
 db.session.commit()
-
 
 ras = role_activities.insert().values([
     (role.id, acs[0].id),
