@@ -1,7 +1,7 @@
 import datetime
 from webapp import db
 from webapp.models import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles, PerformerRole, \
-    PerformerActivity, role_activities
+    PerformerActivity, role_activities, PerformancePlace, PerformanceEvent
 
 db.create_all()
 
@@ -99,4 +99,17 @@ ras = role_activities.insert().values([
     (role2.id, acs[6].id)
 ])
 db.session.execute(ras)
+db.session.commit()
+
+db.session.query(PerformancePlace).delete()
+
+place = PerformancePlace(name="Abbyy Road")
+db.session.add(place)
+db.session.commit()
+
+db.session.query(PerformanceEvent).delete()
+
+event = PerformanceEvent(perf_place_id=place.id, personnel_id=personnel.id,
+                         date=datetime.date(year=1069, month=5, day=12), name="Abbyy Road album recording")
+db.session.add(event)
 db.session.commit()

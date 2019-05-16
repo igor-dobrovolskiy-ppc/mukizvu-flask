@@ -57,7 +57,9 @@ def performer(performer_id):
     #     top_tags=top_tags,
     #     form=form
     # )
-    return "<html>Hello Performer"
+    person = Performer.query.filter_by(id=performer_id).first().person()
+
+    return "<html>Hello %s %s" % (person.name, person.surname)
 
 
 if __name__ == '__main__':

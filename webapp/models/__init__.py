@@ -1,5 +1,5 @@
+import datetime
 from builtins import classmethod
-
 from .. import db
 
 
@@ -193,3 +193,46 @@ class PerformerActivity(db.Model):
 
     def __repr__(self):
         return '<PerformerActivity#{}: {} ({})>'.format(self.id, self.name, self.desc)
+
+
+class PerformancePlace(db.Model):
+    __tablename__ = 'm3vu_performance_place'
+
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    longitude = db.Column(db.Float(), nullable=True)
+    latitude = db.Column(db.Float(), nullable=True)
+
+    def __init__(self, name, longitude=None, latitude=None):
+        self.name = name
+        self.longitude = longitude
+        self.latitude = latitude
+
+    def __repr__(self):
+        return '<PerformancePlace#{}: {}, location=({} x {})>'.format(self.id, self.name, self.longitude, self.latitude)
+
+
+class PerformanceEvent(db.Model):
+    __tablename__ = 'm3vu_performance_event'
+
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(255), nullable=True)
+    perf_place_id = db.Column(db.Integer(), db.ForeignKey('m3vu_performance_place.id'), nullable=False, index=True)
+    personnel_id = db.Column(db.Integer(), db.ForeignKey('m3vu_personnel.id'), nullable=False, index=True)
+    date = db.Column(db.Date, nullable=False)
+
+    def __init__(self, perf_place_id, personnel_id, date=datetime.datetime.now().date(), name=None):
+        self.perf_place_id = perf_place_id
+        self.personnel_id = personnel_id
+        self.date = date
+        self.name = name
+
+    def perf_place(self):
+        return PerformancePlace.query.filter_by(id=self.perf_place_id).first()
+
+    def personnel(self):
+        return Personnel.query.filter_by(id=self.personnel_id).first()
+
+    def __repr__(self):
+        return '<PerformanceEvent#{}: {}, place: {}, performers: {}>'.format(self.id, self.date,
+                                                                             self.perf_place(), self.personnel().performers)
