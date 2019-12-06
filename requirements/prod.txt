@@ -3,3 +3,4 @@ flask-sqlalchemy
 # Postgres
 psycopg2
 Flask-Migrate
+gunicorn==19.3.0

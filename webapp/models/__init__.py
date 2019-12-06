@@ -21,6 +21,9 @@ class Person(db.Model):
     gender = db.Column(db.String(255), nullable=True)  # TODO: rework into Gender table ref.
     # posts = db.relationship('Post', backref='flt_user', lazy='subquery')
 
+    def fullname(self):
+        return "{name} {surname}".format(name=self.name, surname=self.surname)
+
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname

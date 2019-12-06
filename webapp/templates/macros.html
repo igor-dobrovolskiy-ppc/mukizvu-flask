@@ -61,12 +61,14 @@
 {% endmacro %#}
 
 {% macro render_performers(performers, pagination=True) %}
+<div class="mb-7">
 {% for performer in performers %}
-<div >
+<div class="row">
     <h1>
-        <a class="text-dark" href="{{ url_for('performer', performer_id=performer.id) }}">{{ performer }}</a>
+        <a class="text-secondary" href="{{ url_for('performer', performer_id=performer.id) }}">{{ (performer.person()).fullname() }}</a>
     </h1>
 </div>
+
 <!--<div class="row">-->
     <!--<div class="col">-->
         <!--{#{ post.text | truncate(500) | safe }#}-->
@@ -74,4 +76,5 @@
     <!--</div>-->
 <!--</div>-->
 {% endfor %}
+</div>
 {% endmacro %}

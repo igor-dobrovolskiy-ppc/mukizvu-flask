@@ -1,0 +1,6 @@
+Flask==0.12.4
+flask-sqlalchemy
+Flask-Migrate
+libsass
+rcssmin==1.0.6
+rjsmin==1.0.12
