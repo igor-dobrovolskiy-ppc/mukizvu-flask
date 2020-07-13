@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 </head>
 <body class="bg-dark">
@@ -28,11 +28,11 @@
     {#% include 'messages.html' %#}
     {% block body %}
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             {% block leftbody %}
             {% endblock %}
         </div>
-        <div class="col-lg-3 rounded">
+        <div class="col-lg-4 rounded">
             {% block rightbody %}
             {% include 'rightbody.html' %}
             {% endblock %}
