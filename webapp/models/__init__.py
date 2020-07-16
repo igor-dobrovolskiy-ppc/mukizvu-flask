@@ -53,6 +53,14 @@ class Author(db.Model):
         return '<Author#{}: -> Person: {}>'.format(self.id, self.person())
 
 
+personnel_performer_roles = db.Table(
+    'm3vu_personnel_performer_role',
+    db.Column('performer_id', db.Integer, db.ForeignKey('m3vu_performer.id')),
+    db.Column('personnel_id', db.Integer, db.ForeignKey('m3vu_personnel.id')),
+    db.Column('performer_role_id', db.Integer, db.ForeignKey('m3vu_performer_role.id'), nullable=True)
+)
+
+
 class Performer(db.Model):
     __tablename__ = 'm3vu_performer'
 
@@ -70,11 +78,20 @@ class Performer(db.Model):
             not_(Performer.person_id == None)
         ).distinct(Performer.person_id)
 
+    roles = db.relationship(
+        'PerformerRole',
+        secondary=personnel_performer_roles,
+        backref=db.backref('roles', lazy='dynamic')
+    )
+
+    def activities(self):
+        return ", ".join([e.name for e in self.roles[0].activities])
+
     def __init__(self, person_id):
         self.person_id = person_id
 
     def __repr__(self):
-        return '<Performer#{}: -> Person: {}>'.format(self.id, self.person())
+        return '<Performer#{}: -> Person: {}, Activities: {}>'.format(self.id, self.person(), self.activities())
 
 
 class Opus(db.Model):
@@ -119,14 +136,6 @@ class Band(db.Model):
 
     def __repr__(self):
         return '<Band#{}: {}, performer: {}>'.format(self.id, self.name, self.performer())
-
-
-personnel_performer_roles = db.Table(
-    'm3vu_personnel_performer_role',
-    db.Column('performer_id', db.Integer, db.ForeignKey('m3vu_performer.id')),
-    db.Column('personnel_id', db.Integer, db.ForeignKey('m3vu_personnel.id')),
-    db.Column('performer_role_id', db.Integer, db.ForeignKey('m3vu_performer_role.id'), nullable=True)
-)
 
 
 class Personnel(db.Model):

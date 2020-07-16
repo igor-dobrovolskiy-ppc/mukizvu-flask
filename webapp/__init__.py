@@ -69,7 +69,7 @@ def create_app(object_name):
     # admin_create_module(app)
     # babel_create_module(app)
 
-    # import gen_test_data
+    # import gen_db
 
     return app
 
