@@ -64,24 +64,26 @@
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+        {% for performer in performers %}
+
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{ (performer.person()).id - 1 }}" {% if
+            (performer.person()).id== 1 %} class="active" {% endif %}></li>
+
+        {% endfor %}
     </ol>
     <div class="carousel-inner h-100">
         {% for performer in performers %}
 
         <div class="carousel-item mb-5 col {% if (performer.person()).id == 1 %} active {% endif %}">
-            <img class="d-block w-100 align-self-center"
-                 src="{{ url_for('static', filename='img/personnel/%d.png' % (performer.person()).id) }}"
-                 alt="{{ (performer.person()).fullname() }}">
-            <div class="carousel-caption">
-                <h3>{{ (performer.person()).name }}</h3>
-                <p>{{ (performer.person()).fullname() }}</p>
-            </div>
+            <a class="text-secondary" href="{{ url_for('performer', performer_id=performer.id) }}">
+                <img class="d-block w-100 align-self-center"
+                     src="{{ url_for('static', filename='img/personnel/%d.png' % (performer.person()).id) }}"
+                     alt="{{ (performer.person()).fullname() }}">
+                <div class="carousel-caption">
+                    <h3>{{ (performer.person()).name }}</h3>
+                    <p>{{ (performer.person()).fullname() }}</p>
+                </div>
+            </a>
         </div>
 
         {% endfor %}
