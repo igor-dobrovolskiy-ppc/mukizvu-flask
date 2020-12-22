@@ -1,52 +1,57 @@
 <nav class="navbar navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-            aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div style="position: fixed; top: 0; width: 100%; opacity: 0.7;">
 
-    <div class="collapse navbar-collapse navbar-dark bg-secondary w-100 rounded-bottom" id="navbarToggleExternalContent">
-        <!--        <div class="navbar-dark bg-secondary p-4" id="navbarSupportedContent">-->
-        <table class="table w-100">
-            <tbody>
-            <tr>
-                <td class="p-4">
-                    <ul class="navbar-nav list-group-horizontal">
-                        <li class="nav-item active ">
-                            <a class="nav-link" href="{{url_for('home')}}">Home <span
-                                    class="sr-only">(current)</span></a>
-                        </li>
-                    </ul>
-                </td>
-                <td class="p-4">
-                    <ul class="navbar-nav float-right list-group-horizontal">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('home')}}"></a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-fw fa-sign-in"></i>Albums</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-fw fa-sign-in"></i>Events</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-fw fa-sign-in"></i>History</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-fw fa-sign-in"></i>Personnel</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-fw fa-sign-in"></i>Contact</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="collapse navbar-collapse navbar-dark bg-secondary w-100 rounded-bottom" id="navbarToggleExternalContent">
+            <!--        <div class="navbar-dark bg-secondary p-4" id="navbarSupportedContent">-->
+            <table class="table w-100">
+                <tbody>
+                <tr>
+<!--                    <td class="p-4">-->
+<!--                        <ul class="navbar-nav list-group-horizontal">-->
+<!--                            <li class="nav-item active ">-->
+<!--                                <a class="nav-link" href="{{url_for('home')}}">Home <span-->
+<!--                                        class="sr-only">(current)</span></a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </td>-->
+                    <td class="p-4">
+                        <ul class="navbar-nav float-right list-group-horizontal">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('home')}}"></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-fw fa-sign-in"></i>Albums</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-fw fa-sign-in"></i>Events</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-fw fa-sign-in"></i>History</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-fw fa-sign-in"></i>Personnel</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-fw fa-sign-in"></i>Contact</a>
+                            </li>
+                            <li class="nav-item px-5"/>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button style="position: fixed; top: 20px; left: 40px;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
     </div>
 </nav>
 

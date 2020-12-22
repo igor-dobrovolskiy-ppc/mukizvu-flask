@@ -1,11 +1,10 @@
 from main import app
 from webapp import db, migrate
-from webapp.models import Person, Author, Performer
+from webapp.dao import Person, Author, Performer
 
 
 @app.shell_context_processor
 def make_shell_context():
-    # return dict(app=app, db=db, User=User, Post=Post, Tag=Tag, migrate=migrate)
     return dict(app=app, db=db, Person=Person, Performer=Performer, Author=Author, migrate=migrate)
 
 

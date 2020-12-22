@@ -247,4 +247,5 @@ class PerformanceEvent(db.Model):
 
     def __repr__(self):
         return '<PerformanceEvent#{}: {}, place: {}, performers: {}>'.format(self.id, self.date,
-                                                                             self.perf_place(), self.personnel().performers)
+                                                                             self.perf_place(),
+                                                                             self.personnel().performers)

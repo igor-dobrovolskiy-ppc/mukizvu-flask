@@ -5,7 +5,7 @@ import logging
 from flask import render_template
 from webapp import create_app
 # from webapp.cli import register
-from webapp.models import Performer
+from webapp.dao import Performer
 
 log = logging.getLogger(__name__)
 env = os.environ.get('WEBAPP_ENV', 'dev')

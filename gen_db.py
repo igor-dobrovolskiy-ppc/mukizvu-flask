@@ -1,6 +1,6 @@
 import datetime
 from webapp import db
-from webapp.models import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles, PerformerRole, \
+from webapp.dao import Person, Author, Performer, Opus, Band, Personnel, personnel_performer_roles, PerformerRole, \
     PerformerActivity, role_activities, PerformancePlace, PerformanceEvent
 
 db.create_all()
@@ -12,7 +12,6 @@ ds2 = role_activities.delete()
 db.session.execute(ds1)
 db.session.execute(ds2)
 db.session.commit()
-
 
 
 person_pl = Person(name="Sergii", surname="aka 'Platon' aka 'Beard' Distriyanov")
@@ -35,7 +34,6 @@ author = Author(person_id=person_pl.id)
 db.session.add(author)
 author2 = Author(person_id=person_vit.id)
 db.session.add(author2)
-
 
 performer_pl = Performer(person_id=person_pl.id)
 db.session.add(performer_pl)
